@@ -12,8 +12,8 @@ const config: Config = {
         cream: "#FDF6F8",
       },
       fontFamily: {
-        serif: ["Cormorant Garamond", "Georgia", "serif"],
-        sans: ["Montserrat", "Helvetica Neue", "sans-serif"],
+        serif: ["var(--font-cormorant)", "Georgia", "serif"],
+        sans: ["var(--font-montserrat)", "Helvetica Neue", "sans-serif"],
       },
       keyframes: {
         marquee: {

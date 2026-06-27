@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
@@ -15,82 +14,80 @@ html, body {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #FFFFFF;
-  color: #1C1C1C;
+  font-family: var(--font-montserrat), "Helvetica Neue", sans-serif;
+  background-color: #ffffff;
+  color: #1c1c1c;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #FDF6F8;
-}
-::-webkit-scrollbar-thumb {
-  background: #7B1628;
-  border-radius: 3px;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #fdf6f8; }
+::-webkit-scrollbar-thumb { background: #7b1628; border-radius: 3px; }
 
-/* Marquee */
+/* ── Marquee ── */
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 40s linear infinite;
 }
-
 @keyframes marquee {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* Hover underline animation */
-.hover-underline {
+/* ── Hover underline ── */
+.hover-line {
   position: relative;
 }
-.hover-underline::after {
-  content: '';
+.hover-line::after {
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
   width: 0;
   height: 1px;
-  background: #7B1628;
+  background: #7b1628;
   transition: width 0.3s ease;
 }
-.hover-underline:hover::after {
+.hover-line:hover::after {
   width: 100%;
 }
 
-/* Service card hover */
+/* ── Service card ── */
 .service-card {
-  transition: all 0.3s ease;
-  border-top: 1px solid #E8C8D0;
+  transition: background 0.3s ease;
+  border-top: 1px solid #e8c8d0;
 }
 .service-card:hover {
-  background-color: #FBE8EC;
+  background-color: #fbe8ec;
 }
 
-/* Image placeholder shimmer */
+/* ── Placeholder shimmer ── */
 .img-placeholder {
-  background: linear-gradient(135deg, #FBE8EC 0%, #F3D5DC 50%, #FBE8EC 100%);
+  background: linear-gradient(135deg, #fbe8ec 0%, #f0cdd6 40%, #fbe8ec 100%);
   background-size: 200% 200%;
-  animation: shimmer 3s ease infinite;
+  animation: shimmer 4s ease infinite;
 }
-
 @keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Section fade in */
-.fade-section {
+/* ── Scroll fade ── */
+.fade-up {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
 }
-.fade-section.visible {
+.fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ── Stagger children ── */
+.stagger > *:nth-child(1) { transition-delay: 0s; }
+.stagger > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger > *:nth-child(3) { transition-delay: 0.2s; }
+.stagger > *:nth-child(4) { transition-delay: 0.3s; }
