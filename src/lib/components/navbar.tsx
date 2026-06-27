@@ -11,6 +11,10 @@ const NAV = [
   { label: "Clients",   href: "#clients" },
 ]
 
+function scrollTo(id: string) {
+  document.querySelector(id)?.scrollIntoView({ behavior: "smooth" })
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -21,10 +25,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", fn)
   }, [])
 
-  function goto(e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) {
+  function handleAnchor(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
     if (href.startsWith("#")) {
       e.preventDefault()
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" })
+      scrollTo(href)
       setOpen(false)
     }
   }
@@ -59,7 +63,7 @@ export default function Navbar() {
                 <a
                   key={label}
                   href={href}
-                  onClick={(e) => goto(e, href)}
+                  onClick={(e) => handleAnchor(e, href)}
                   className="hover-line font-sans text-[10px] tracking-[0.2em] uppercase text-[#1c1c1c] hover:text-[#7b1628] transition-colors"
                 >
                   {label}
@@ -75,7 +79,7 @@ export default function Navbar() {
               )
             )}
             <button
-              onClick={(e) => goto(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#book")}
+              onClick={() => scrollTo("#book")}
               className="ml-2 px-7 py-[11px] bg-[#7b1628] text-white font-sans text-[10px] tracking-[0.2em] uppercase hover:bg-[#5c1020] transition-colors duration-200"
             >
               Book Now
@@ -85,7 +89,7 @@ export default function Navbar() {
           {/* Hamburger */}
           <button
             aria-label="Toggle menu"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpen(o => !o)}
             className="md:hidden flex flex-col gap-[6px] p-1"
           >
             <span className={`block w-[22px] h-px bg-[#7b1628] origin-center transition-transform duration-300 ${open ? "rotate-45 translate-y-[7px]" : ""}`} />
@@ -96,7 +100,9 @@ export default function Navbar() {
 
         {/* Mobile drawer */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 bg-[#fbe8ec] ${open ? "max-h-72 opacity-100" : "max-h-0 opacity-0"}`}
+          className={`md:hidden overflow-hidden transition-all duration-300 bg-[#fbe8ec] ${
+            open ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
+          }`}
         >
           <div className="px-6 pb-7 pt-2 flex flex-col gap-5">
             {NAV.map(({ label, href }) =>
@@ -104,13 +110,15 @@ export default function Navbar() {
                 <a
                   key={label}
                   href={href}
-                  onClick={(e) => goto(e, href)}
+                  onClick={(e) => handleAnchor(e, href)}
                   className="font-sans text-[10px] tracking-[0.2em] uppercase text-[#1c1c1c] hover:text-[#7b1628] transition-colors"
                 >
                   {label}
                 </a>
               ) : (
-                <Link key={label} href={href}
+                <Link
+                  key={label}
+                  href={href}
                   className="font-sans text-[10px] tracking-[0.2em] uppercase text-[#1c1c1c] hover:text-[#7b1628] transition-colors"
                   onClick={() => setOpen(false)}
                 >
@@ -119,7 +127,7 @@ export default function Navbar() {
               )
             )}
             <button
-              onClick={(e) => goto(e as unknown as React.MouseEvent<HTMLAnchorElement>, "#book")}
+              onClick={() => { scrollTo("#book"); setOpen(false) }}
               className="w-fit px-8 py-3 bg-[#7b1628] text-white font-sans text-[10px] tracking-[0.2em] uppercase"
             >
               Book Now
@@ -128,7 +136,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Spacer to push content below fixed nav */}
+      {/* Spacer */}
       <div className="h-[76px]" />
     </>
   )

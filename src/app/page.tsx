@@ -153,7 +153,7 @@ function FAQ({ q, a }: { q: string; a: string }) {
   return (
     <div className="border-t border-[#e8c8d0]">
       <button
-        onClick={() => setOpen(!o => !o)}
+        onClick={() => setOpen(o => !o)}
         className="w-full py-5 flex justify-between items-start text-left gap-4 group"
       >
         <span className="font-serif italic text-lg md:text-xl text-[#1c1c1c] group-hover:text-[#7b1628] transition-colors">
